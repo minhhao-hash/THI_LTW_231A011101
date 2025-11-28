@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 02 - Todo Matrix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+
+        .info-panel {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            height: fit-content;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            border: 5px solid #667eea;
+        }
+
+        .student-info {
+            text-align: center;
+        }
+
+        .student-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .student-info p {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .task-panel {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .add-task-form {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .matrix-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .matrix-box {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        .matrix-box h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+        }
+
+        .box-1 {
+            background: #ffebee;
+            border-color: #ef5350;
+        }
+
+        .box-1 h3 {
+            color: #ef5350;
+            border-color: #ef5350;
+        }
+
+        .box-2 {
+            background: #fff3e0;
+            border-color: #ff9800;
+        }
+
+        .box-2 h3 {
+            color: #ff9800;
+            border-color: #ff9800;
+        }
+
+        .box-3 {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .box-3 h3 {
+            color: #2196f3;
+            border-color: #2196f3;
+        }
+
+        .box-4 {
+            background: #f1f8e9;
+            border-color: #8bc34a;
+        }
+
+        .box-4 h3 {
+            color: #8bc34a;
+            border-color: #8bc34a;
+        }
+
+        .task-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .task-item:hover {
+            transform: translateX(5px);
+        }
+
+        .task-item span {
+            flex: 1;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-delete:hover {
+            background: #d32f2f;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .matrix-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .task-panel,
+            .info-panel {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Về trang chủ</a>
+
+        <div class="main-content">
+            <div class="info-panel">
+                <img src="images/avatar.jpg" alt="Avatar" class="avatar" id="avatarImg">
+                <div class="student-info">
+                    <h2 id="studentName">Họ và tên</h2>
+                    <p><strong>MSSV:</strong> <span id="studentId">MSSV</span></p>
+                </div>
+            </div>
+
+            <div class="task-panel">
+                <h1>📋 Ma trận Eisenhower - Quản lý công việc</h1>
+
+                <div class="add-task-form">
+                    <h3>Thêm công việc mới</h3>
+                    <div class="form-group">
+                        <label for="taskName">Tên công việc:</label>
+                        <input type="text" id="taskName" placeholder="Nhập tên công việc...">
+                    </div>
+                    <div class="form-group">
+                        <label for="taskPriority">Độ ưu tiên:</label>
+                        <select id="taskPriority">
+                            <option value="">-- Chọn độ ưu tiên --</option>
+                            <option value="1">1 - Quan trọng & Khẩn cấp</option>
+                            <option value="2">2 - Quan trọng - Không khẩn cấp</option>
+                            <option value="3">3 - Không quan trọng - Khẩn cấp</option>
+                            <option value="4">4 - Không quan trọng - Không khẩn cấp</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="addTask()">Thêm công việc</button>
+                </div>
+
+                <div class="matrix-container">
+                    <div class="matrix-box box-1">
+                        <h3>🔥 Quan trọng & Khẩn cấp</h3>
+                        <div id="box-1" class="task-list"></div>
+                    </div>
+                    <div class="matrix-box box-2">
+                        <h3>⭐ Quan trọng - Không khẩn cấp</h3>
+                        <div id="box-2" class="task-list"></div>
+                    </div>
+                    <div class="matrix-box box-3">
+                        <h3>⚡ Không quan trọng - Khẩn cấp</h3>
+                        <div id="box-3" class="task-list"></div>
+                    </div>
+                    <div class="matrix-box box-4">
+                        <h3>📝 Không quan trọng - Không khẩn cấp</h3>
+                        <div id="box-4" class="task-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ====== CẤU HÌNH - THAY ĐỔI THÔNG TIN CỦA BẠN Ở ĐÂY ======
+        const STUDENT_NAME = "Nguyễn Minh Hào";  // Thay bằng tên của bạn
+        const STUDENT_ID = "231A011101";      // Thay bằng MSSV của bạn
+        // ==========================================================
+
+        const STORAGE_KEY = `tasks_${STUDENT_ID}`;
+        let tasks = [];
+
+        // Xác định màu chữ dựa trên MSSV
+        const lastDigit = parseInt(STUDENT_ID.slice(-1));
+        const isEven = lastDigit % 2 === 0;
+        const LONG_TASK_COLOR = isEven ? '#FF0000' : '#0000FF'; // Đỏ nếu chẵn, Xanh dương nếu lẻ
+
+        function init() {
+            // Hiển thị thông tin sinh viên
+            document.getElementById('studentName').textContent = STUDENT_NAME;
+            document.getElementById('studentId').textContent = STUDENT_ID;
+
+            // Load tasks từ localStorage
+            loadTasks();
+            renderTasks();
+        }
+
+        function loadTasks() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    tasks = JSON.parse(stored);
+                } catch (e) {
+                    console.error('Lỗi load tasks:', e);
+                    tasks = [];
+                }
+            }
+        }
+
+        function saveTasks() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+        }
+
+        function addTask() {
+            const nameInput = document.getElementById('taskName');
+            const prioritySelect = document.getElementById('taskPriority');
+
+            const name = nameInput.value.trim();
+            const priority = prioritySelect.value;
+
+            if (!name) {
+                alert('Vui lòng nhập tên công việc!');
+                return;
+            }
+
+            if (!priority) {
+                alert('Vui lòng chọn độ ưu tiên!');
+                return;
+            }
+
+            const task = {
+                id: Date.now(),
+                name: name,
+                priority: parseInt(priority),
+                color: name.length > 10 ? LONG_TASK_COLOR : '#333'
+            };
+
+            tasks.push(task);
+            saveTasks();
+            renderTasks();
+
+            // Reset form
+            nameInput.value = '';
+            prioritySelect.value = '';
+        }
+
+        function deleteTask(taskId) {
+            if (confirm('Bạn có chắc muốn xóa công việc này?')) {
+                tasks = tasks.filter(t => t.id !== taskId);
+                saveTasks();
+                renderTasks();
+            }
+        }
+
+        function renderTasks() {
+            // Clear all boxes
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`box-${i}`).innerHTML = '';
+            }
+
+            // Render tasks into correct boxes
+            tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = 'task-item';
+                taskElement.innerHTML = `
+                    <span style="color: ${task.color};">${task.name}</span>
+                    <button class="btn-delete" onclick="deleteTask(${task.id})">Xóa</button>
+                `;
+
+                const boxId = `box-${task.priority}`;
+                document.getElementById(boxId).appendChild(taskElement);
+            });
+        }
+
+        // Xử lý sự kiện Enter trong input
+        document.getElementById('taskName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+
+        // Khởi tạo khi trang load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>

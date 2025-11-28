@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phần lý thuyết</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js"></script>
+    <style>
+        .theory-content {
+            padding: 20px 0;
+        }
+
+        .question {
+            background: #f9f9f9;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .question h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .question h3 {
+            color: #333;
+            margin: 20px 0 10px 0;
+            font-size: 18px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .check-mark {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .cross-mark {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .code-block .keyword {
+            color: #ff79c6;
+        }
+
+        .code-block .function {
+            color: #50fa7b;
+        }
+
+        .code-block .string {
+            color: #f1fa8c;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+            font-style: italic;
+        }
+
+        .process-steps {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .process-steps ol {
+            margin-left: 20px;
+        }
+
+        .process-steps li {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .pros, .cons {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .pros {
+            border-left: 4px solid #4caf50;
+        }
+
+        .cons {
+            border-left: 4px solid #f44336;
+        }
+
+        .pros h4, .cons h4 {
+            margin-bottom: 10px;
+        }
+
+        .pros ul, .cons ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .pros li::before {
+            content: "✔ ";
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .cons li::before {
+            content: "❌ ";
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .highlight-box strong {
+            color: #ff6b6b;
+            font-size: 18px;
+        }
+
+        .conclusion {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .conclusion h4 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .method-card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .method-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 12px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Về trang chủ</a>
+        
+        <header>
+            <h1>A. PHẦN LÝ THUYẾT & TƯ DUY (3 điểm)</h1>
+        </header>
+
+        <main class="theory-content">
+            <!-- Câu 1 -->
+            <section class="question">
+                <h2>Câu 1 (1 điểm) - Phân biệt display, visibility và opacity</h2>
+                
+                <p><strong>Đề bài:</strong> Phân biệt <code>display: none</code>, <code>visibility: hidden</code> và <code>opacity: 0</code> về hiển thị & tương tác</p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Thuộc tính</th>
+                            <th>Hiển thị trên giao diện</th>
+                            <th>Chiếm không gian?</th>
+                            <th>Nhận sự kiện chuột?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>display: none</code></td>
+                            <td>Không hiển thị</td>
+                            <td><span class="cross-mark">❌ Không chiếm chỗ</span></td>
+                            <td><span class="cross-mark">❌ Không nhận sự kiện</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>visibility: hidden</code></td>
+                            <td>Không hiển thị</td>
+                            <td><span class="check-mark">✔ Chiếm chỗ như bình thường</span></td>
+                            <td><span class="cross-mark">❌ Không nhận sự kiện</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>opacity: 0</code></td>
+                            <td>Trong suốt 100% (vẫn thấy như tàng hình)</td>
+                            <td><span class="check-mark">✔ Chiếm chỗ</span></td>
+                            <td><span class="check-mark">✔ Vẫn nhận sự kiện chuột</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="conclusion">
+                    <h4>Kết luận ngắn gọn:</h4>
+                    <ul>
+                        <li><strong>display: none</strong> → biến mất hoàn toàn, layout thu gọn.</li>
+                        <li><strong>visibility: hidden</strong> → ẩn nhưng giữ chỗ.</li>
+                        <li><strong>opacity: 0</strong> → chỉ làm trong suốt, vẫn tương tác được.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Câu 2 -->
+            <section class="question">
+                <h2>Câu 2 (1 điểm) - Quy trình trỏ Domain về Hosting</h2>
+
+                <div class="method-card">
+                    <h4>1️⃣ Trỏ bằng Nameserver (NS)</h4>
+                    
+                    <p><strong>Cách hoạt động:</strong></p>
+                    <ul>
+                        <li>Đổi NS của domain sang NS của hosting (ví dụ: ns1.hostinger.com, ns2.hostinger.com).</li>
+                        <li>Toàn bộ việc quản lý DNS (A record, CNAME, MX…) được hosting xử lý.</li>
+                    </ul>
+
+                    <div class="process-steps">
+                        <h4>Quy trình:</h4>
+                        <ol>
+                            <li>Vào trang quản lý domain</li>
+                            <li>Chọn mục Nameserver</li>
+                            <li>Nhập NS của hosting</li>
+                            <li>Chờ DNS propagation</li>
+                        </ol>
+                    </div>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Ưu điểm:</h4>
+                            <ul>
+                                <li>Dễ dùng</li>
+                                <li>Hosting quản lý toàn bộ DNS</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Nhược điểm:</h4>
+                            <ul>
+                                <li>Thời gian cập nhật chậm hơn (6–48 giờ)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h4>2️⃣ Trỏ bằng A Record</h4>
+                    
+                    <p><strong>Cách hoạt động:</strong></p>
+                    <ul>
+                        <li>Thêm một bản ghi A trỏ domain → IP của hosting</li>
+                        <li>Ví dụ: A record: @ → 103.221.220.15</li>
+                    </ul>
+
+                    <div class="process-steps">
+                        <h4>Quy trình:</h4>
+                        <ol>
+                            <li>Vào DNS Management của domain</li>
+                            <li>Thêm bản ghi A</li>
+                            <li>Điền IP hosting</li>
+                            <li>Lưu lại</li>
+                        </ol>
+                    </div>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Ưu điểm:</h4>
+                            <ul>
+                                <li>Cập nhật nhanh nhất (5 phút – 1 giờ)</li>
+                                <li>Kiểm soát chi tiết từng record</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Nhược điểm:</h4>
+                            <ul>
+                                <li>Phải tự cấu hình DNS (MX, CNAME…)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>🚀 Cách nào nhanh hơn?</strong><br>
+                    A Record cập nhật nhanh hơn Nameserver
+                </div>
+            </section>
+
+            <!-- Câu 3 -->
+            <section class="question">
+                <h2>Câu 3 (1 điểm) - JavaScript Async/Await</h2>
+
+                <p><strong>Đề bài:</strong> Viết lại hàm dùng async/await</p>
+
+                <h3>Đáp án chuẩn:</h3>
+                <div class="code-block">
+<span class="keyword">async function</span> <span class="function">getData</span>() {
+    <span class="keyword">try</span> {
+        <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://api.example.com/data'</span>);
+        <span class="keyword">const</span> data = <span class="keyword">await</span> res.<span class="function">json</span>();
+        console.<span class="function">log</span>(data);
+    } <span class="keyword">catch</span> (err) {
+        console.<span class="function">error</span>(err);
+    }
+}
+                </div>
+
+                <h3>Giải thích tư duy:</h3>
+                <div class="process-steps">
+                    <ul>
+                        <li><code><strong>async</strong></code> giúp hàm hỗ trợ await.</li>
+                        <li><code><strong>await fetch()</strong></code> giúp code chạy tuần tự như synchronous.</li>
+                        <li><code><strong>try...catch</strong></code> xử lý lỗi tương đương <code>.catch()</code></li>
+                    </ul>
+                </div>
+
+                <div class="conclusion">
+                    <h4>💡 Lợi ích của Async/Await:</h4>
+                    <ul>
+                        <li>Code dễ đọc hơn Promise chain</li>
+                        <li>Xử lý lỗi đơn giản hơn với try...catch</li>
+                        <li>Debug dễ dàng hơn</li>
+                        <li>Tránh "callback hell" và "promise hell"</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 - Bài thi Lập trình Web - Phần Lý thuyết</p>
+        </footer>
+    </div>
+</body>
+</html>
